@@ -1,15 +1,18 @@
-import styled from "styled-components";
-import {theme} from "../../assets/theme/theme.ts";
+import React from "react";
+import {Box, Flex} from "@chakra-ui/react";
+import { Text } from '@chakra-ui/react'
+import { motion } from "framer-motion";
+import { theme } from "../../assets/theme/theme";
 
-const PageWrapper = styled.div`
-    background-color: ${theme.colors.primaryMedium};
-    padding: 20px;
-`
 const Component = () => {
+    // const {toogleForm, setToggleForm} = React.useState(false)
     return (
-        <PageWrapper>
-        <p>This is Auth form</p>
-        </PageWrapper>
+
+        <Flex 
+        backgroundColor={theme.colors.primaryMedium} 
+        p={5} direction="column" >
+            <Box fontSize="3xl" as={motion.div} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} transition='0.5'>Sign Up</Box>
+        </Flex>
     )
 }
 

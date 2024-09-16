@@ -1,34 +1,21 @@
 import styled from "styled-components";
 import Introduction from "./Introduction.tsx";
 import Auth from "./Auth.tsx";
+import { motion } from "framer-motion";
+import { AbsoluteCenter, Box, Flex } from "@chakra-ui/react";
 
-const PageWrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    > div {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 1024px;
-        height: 80%;
-        border-radius: 12px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        overflow: hidden;
-    }
-`
+
 
 const Component = () => {
     return (
-        <PageWrapper>
-            <div>
+        <Box as={motion.div} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} transition='1s' width='100%' height="100vh" position="relative">                
+            <AbsoluteCenter axis='both' width="80%" height={"80%"}>
+                <Flex height={"100%"} width="100%">
                 <Introduction/>
                 <Auth/>
-            </div>
-        </PageWrapper>
+                </Flex>
+            </AbsoluteCenter>
+        </Box>
     )
 }
 

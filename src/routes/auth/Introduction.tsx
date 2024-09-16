@@ -1,10 +1,7 @@
 import {theme} from "../../assets/theme/theme.ts";
 import styled, {keyframes} from "styled-components";
+import {Box} from "@chakra-ui/react";
 
-const PageWrapper = styled.div`
-    background-color: ${theme.colors.primaryLight};
-    padding: 20px;
-`
 const moveAround= (index: number) => keyframes`
     0%, 20% {
         transform: translate(0, 0);
@@ -20,13 +17,6 @@ const moveAround= (index: number) => keyframes`
     }
 `;
 
-// const moveRules = [
-//     {x1:0,y1:100, x2:100, y2:100, x3:100, y3:0},
-//     [{x:-100,y:0}, {x:-100, y:100}, {x:0, y:100}],
-//     [{x:100, y:0}, {x:100, y:-100}, {x:0, y:-100}],
-//     [{x:0,y:-100}, {x:-100, y:-100}, {x:-100, y:0}],
-// ]
-
 const Blocks = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -35,7 +25,7 @@ const Blocks = styled.div`
 const Block = styled.span<{backgroundColor: string, index: number}>`
     aspect-ratio: 1/1;
     padding: 20px;
-    animation: ${props => moveAround(props.index)} 10s linear infinite;
+    animation: ${props => moveAround(props.index)} 20s ease-in-out infinite;
     >div {
         background-color: ${props => props.backgroundColor};
         width: 100%;
@@ -46,9 +36,9 @@ const Block = styled.span<{backgroundColor: string, index: number}>`
 `
 const Component =() => {
     return (
-        <PageWrapper>
+        <Box backgroundColor={theme.colors.primaryLight} p={5}>
             <Blocks>
-                {Array(4).fill("").map((_, index) => {
+                {Array(4).fill("").map((_: any, index: number) => {
                     const color = (index % 3) === 0 ? theme.colors.primaryDark : theme.colors.primaryMedium;
                     return (
                         <Block backgroundColor={color} index={index}>
@@ -57,7 +47,7 @@ const Component =() => {
                     );
                 })}
             </Blocks>
-        </PageWrapper>
+        </Box>
     )
 }
 
