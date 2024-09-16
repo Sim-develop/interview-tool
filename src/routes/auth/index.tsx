@@ -1,22 +1,29 @@
-import styled from "styled-components";
 import Introduction from "./Introduction.tsx";
 import Auth from "./Auth.tsx";
 import { motion } from "framer-motion";
-import { AbsoluteCenter, Box, Flex } from "@chakra-ui/react";
-
-
+import { AbsoluteCenter, Box, Grid } from "@chakra-ui/react";
 
 const Component = () => {
-    return (
-        <Box as={motion.div} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} transition='1s' width='100%' height="100vh" position="relative">                
-            <AbsoluteCenter axis='both' width="80%" height={"80%"}>
-                <Flex height={"100%"} width="100%">
-                <Introduction/>
-                <Auth/>
-                </Flex>
-            </AbsoluteCenter>
-        </Box>
-    )
-}
+  return (
+    <Box width="100%" height="100vh" position="relative">
+      <AbsoluteCenter axis="both" width="80%" height="80%">
+        <motion.div
+          animate={{
+            opacity: [0, 1],
+            scale: [0, 1],
+            borderRadius: ["100px", "12px"],
+          }}
+          transition={{ duration: 1, bounce: 0 }}
+          style={{ height: "100%", overflow: "hidden" }}
+        >
+          <Grid templateColumns="repeat(2, 1fr)" height="100%">
+            <Introduction />
+            <Auth />
+          </Grid>
+        </motion.div>
+      </AbsoluteCenter>
+    </Box>
+  );
+};
 
-export default Component
+export default Component;

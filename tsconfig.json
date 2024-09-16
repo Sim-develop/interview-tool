@@ -11,6 +11,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "target": "ES5",
+    "lib": ["ES2015", "DOM"]
   },
   "include": ["src", ],
 }
