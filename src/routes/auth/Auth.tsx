@@ -1,62 +1,124 @@
-import { Flex } from "@chakra-ui/react";
-import { FormLabel, FormControl, Input, Button } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import {
+  Checkbox,
+  Flex,
+  FormErrorMessage,
+  Link,
+  VStack,
+  chakra,
+} from "@chakra-ui/react";
+import { FormControl, Button, Text } from "@chakra-ui/react";
 import { theme } from "../../assets/theme/theme";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { LoginSchema, LoginSchemaType } from "../../schemas/Auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
+import { Lock, Unlock } from "../../assets/icons";
+import Input from "../../components/Input";
+import { motion } from "framer-motion";
 
 const listVariants = {
   hidden: {
-    x: 500,
+    y: 500,
     opacity: 0,
   },
   visible: {
-    x: 0,
+    y: 0,
     opacity: 1,
     transition: {
-      duration: 2,
-      staggerChildren: 5,
+      duration: 1,
+      staggerChildren: 0.5,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { x: 500, opacity: 0 },
-  visible: { x: 0, opacity: 1, transition: { duration: 2 } },
+  hidden: { y: 50, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
 };
 
 const Component = () => {
+  const [show, setShow] = React.useState(false);
   const {
-    handleSubmit,
     register,
-    formState: { errors, isSubmitting },
-  } = useForm();
-  function onSubmit(values: any) {
-    console.log(values);
-  }
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginSchemaType>({ resolver: zodResolver(LoginSchema) });
+  const onSubmit: SubmitHandler<LoginSchemaType> = (data) => console.log(data);
   return (
-    <Flex backgroundColor={theme.colors.primaryMedium} p={5} direction="column">
-      <motion.ul variants={listVariants} initial="hidden" animate="visible">
-        <motion.li variants={itemVariants}>Item 1</motion.li>
-        <motion.li variants={itemVariants}>Item 2</motion.li>
-        <motion.li variants={itemVariants}>Item 3</motion.li>
-      </motion.ul>
+    <Flex
+      backgroundColor={theme.colors.primaryMedium}
+      p={5}
+      direction="column"
+      alignItems="stretch"
+      justifyContent="center"
+    >
+      <Text fontSize="4xl" textAlign="center" mb={10}>
+        Hello Again!
+      </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
-          <FormLabel htmlFor="name">First name</FormLabel>
-          <Input
-            id="name"
-            placeholder="name"
-            {...register("name", {
-              required: "This is required",
-              minLength: { value: 4, message: "Minimum length should be 4" },
-            })}
-          />
-        </FormControl>
+        <VStack
+          spacing={5}
+          as={motion.ul}
+          variants={listVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <FormControl
+            isInvalid={!!errors.email}
+            as={motion.div}
+            variants={itemVariants}
+          >
+            <Input id="email" placeholder="Email" {...register("email")} />
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
+          </FormControl>
+          <FormControl
+            isInvalid={!!errors.password}
+            as={motion.div}
+            variants={itemVariants}
+          >
+            <Input
+              id="password"
+              type={show ? "text" : "password"}
+              placeholder="Password"
+              subElement={{
+                inputRightElement: (
+                  <Button
+                    h="3rem"
+                    size="sm"
+                    background="transparent"
+                    _hover={{ background: "transparent" }}
+                    onClick={() => setShow(!show)}
+                  >
+                    {show ? <Unlock height="1rem" /> : <Lock height="1rem" />}
+                  </Button>
+                ),
+              }}
+              {...register("password")}
+            />
+            <FormErrorMessage>
+              {errors.password && errors.password.message}
+            </FormErrorMessage>
+          </FormControl>
+          <Flex
+            justifyContent="space-between"
+            width="100%"
+            as={motion.div}
+            variants={itemVariants}
+          >
+            <Checkbox colorScheme="#E5E5CB" color={theme.colors.primaryLight}>
+              Remember Me
+            </Checkbox>
+            <Link color={theme.colors.primaryText}>Recovery Password</Link>
+          </Flex>
+        </VStack>
         <Button
-          mt={4}
-          colorScheme="teal"
-          isLoading={isSubmitting}
+          mt={10}
           type="submit"
+          variant="outline"
+          color="white"
+          colorScheme="transparent"
         >
           Submit
         </Button>
