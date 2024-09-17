@@ -6,7 +6,7 @@ import { AbsoluteCenter, Box, Grid } from "@chakra-ui/react";
 const Component = () => {
   return (
     <Box width="100%" height="100vh" position="relative">
-      <AbsoluteCenter axis="both" width="80%" height="80%">
+      <AbsoluteCenter axis="both" width="80%" height="80%" maxW="4xl">
         <motion.div
           animate={{
             opacity: [0, 1],

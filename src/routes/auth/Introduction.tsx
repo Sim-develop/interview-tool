@@ -23,12 +23,12 @@ const moveAround = (index: number) => keyframes`
     }
 `;
 
-const Block = styled.span<{ backgroundColor: string; index: number }>`
+const Block = styled.span<{ backgroundcolor: string; index: number }>`
   aspect-ratio: 1/1;
   padding: 20px;
   animation: ${(props) => moveAround(props.index)} 20s ease-in-out infinite;
   > div {
-    background-color: ${(props) => props.backgroundColor};
+    background-color: ${(props) => props.backgroundcolor};
     width: 100%;
     height: 100%;
     border-radius: 10%;
@@ -37,7 +37,7 @@ const Block = styled.span<{ backgroundColor: string; index: number }>`
 `;
 const Component = () => {
   return (
-    <Box backgroundColor={theme.colors.primaryLight} p={5}>
+    <Box background={theme.colors.primaryLight} p={5}>
       <Grid templateColumns="repeat(2, 1fr)">
         {Array(4)
           .fill("")
@@ -47,7 +47,7 @@ const Component = () => {
                 ? theme.colors.primaryDark
                 : theme.colors.primaryMedium;
             return (
-              <Block backgroundColor={color} index={index}>
+              <Block backgroundcolor={color} index={index} key={index}>
                 <div>Guest</div>
               </Block>
             );

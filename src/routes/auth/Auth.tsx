@@ -46,7 +46,7 @@ const Component = () => {
   const onSubmit: SubmitHandler<LoginSchemaType> = (data) => console.log(data);
   return (
     <Flex
-      backgroundColor={theme.colors.primaryMedium}
+      background={theme.colors.primaryMedium}
       p={5}
       direction="column"
       alignItems="stretch"
